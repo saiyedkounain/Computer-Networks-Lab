@@ -5,15 +5,21 @@ public class CRC {
     static String div(String data, String key) {
         char[] a = data.toCharArray();
         char[] b = key.toCharArray();
+    
+        int m = a.length;
         int n = b.length;
-
-        for (int i = 0; i <= a.length - n; i++) {
-            if (a[i] == '1')
-                for (int j = 0; j < n; j++)
+    
+        for (int i = 0; i <= m - n; i++) {
+            if (a[i] == '1') {
+                for (int j = 0; j < n; j++) {
                     a[i + j] = (a[i + j] == b[j]) ? '0' : '1';
+                }
+            }
         }
-        return new String(a).substring(a.length - n + 1);
+    
+        return new String(a).substring(m - n + 1);
     }
+
 
     static String encode(String data, String key) {
         return data + div(data + "0".repeat(key.length() - 1), key);
